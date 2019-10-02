@@ -5,6 +5,7 @@ const Footer = () => {
         <div className="site-footer">
 
             <p className="link-title text-center">Social Media Links</p>
+            <h1>Madhu's React Playground</h1>
             <div className="footer-social-links">
                 <ul className="social-links-list">
                     <li><a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="facebook">
