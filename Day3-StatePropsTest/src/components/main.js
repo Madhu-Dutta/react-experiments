@@ -1,7 +1,4 @@
 import React from 'react';
-import slide1 from '../images/road.jpg';
-// import slide2 from '../images/road.jpg';
-// import slide3 from '../images/road.jpg';
 
 import img1 from '../images/ang.png';
 import img2 from '../images/React.png';
@@ -48,7 +45,6 @@ const Main = () => {
             Main Page
             <h2>{element}</h2>
             <p>{comment}</p>
-            <img src={slide1} alt="Some img" />
 
             <Table dark className="table-container">
                 <thead>

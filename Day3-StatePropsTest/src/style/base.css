@@ -2,11 +2,11 @@
     padding-top: 0%;
     border-top: 0%;
     margin-bottom: 12%;
-    margin-top: 60px;
+    /* margin-top: 60px; */
     text-align: center;
 }
   body {
-    /* background-color: #353535;  */
+    background-color: #fbfcfd;  
     /* font-family: $site-font; */
   }
   a {
