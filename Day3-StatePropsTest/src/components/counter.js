@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import Button from '@material-ui/core/Button';
+import ChildComp from "./child";
 
 class Counter extends Component {
     constructor() {
         super()
         this.state = {
-            counter: 1
+            counter: 1,
+            name: ''
         }
     }
     increament = () => {
@@ -14,6 +16,9 @@ class Counter extends Component {
         })
         // counter = counter + 1;
         // console.log(counter);
+    }
+    change = (newName) => {
+        this.setState({ name: newName })
     }
 
     render() {
@@ -25,8 +30,11 @@ class Counter extends Component {
                     onClick={() => this.increament()}
                 >
                     Count
-      </Button>
+                </Button>
                 <p>{this.state.counter}</p>
+
+                <ChildComp count={this.state.counter} cName={this.change} />
+
             </div>
         )
     }
