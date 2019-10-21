@@ -8,21 +8,30 @@ class Main extends React.Component {
         super();
         console.log("Constructor created");
     }
-    ////Local Url
-    state = {
-        foods: []
-    }
 
+    state = {
+        email: '',
+        membershipType: '',
+        title: "",
+        firstName: "",
+        lastName: "",
+        dob: "",
+        streetAddress: "",
+        suburb: "",
+        state: "",
+        dogHistory: "",
+        members: []
+    }
 
     componentDidMount() {
         console.log("Component did mount");
 
         ////Local Url
-        axios.get('http://localhost:59550/api/fooditems')
+        axios.get('http://dgha-backend-aus-east.azurewebsites.net/api/members')
             //get all the data as promise in the response
             .then(response => {
                 this.setState({
-                    foods: response.data
+                    members: response.data
                 })
             })
             //catch all the errors
@@ -30,38 +39,127 @@ class Main extends React.Component {
             )
     }
 
+    handleChange = e => {
+        e.preventDefault();
+
+        //Grab the input fields here
+        let inputName = e.target.name;
+        let inputValue = e.target.value;
+
+        // //Handle change events on input fields
+        this.setState({
+            [inputName]: inputValue
+        });
+    }
+
+    handleSubmit = event => {
+        event.preventDefault();
+
+        const user = {
+            email: this.state.email,
+            membershipType: this.state.membershipType,
+            title: this.state.title,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            dob: this.state.dob,
+            streetAddress: this.state.streetAddress,
+            suburb: this.state.suburb,
+            state: this.state.state,
+            dogHistory: this.state.dogHistory,
+        }
+        axios.post(`http://dgha-backend-aus-east.azurewebsites.net/api/members`, user)
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+            })
+    }
+
     render() {
-        console.log("App render");
-        console.log(this.state);
 
         //Using local Url
-        if (this.state.foods.length === 0) {
+        if (this.state.members.length === 0) {
             return (
                 <h2 style={{ textAlign: "center" }}> Loading ......</h2>
             )
         }
         else {
             return (
+
                 <div className="container">
+                    <div>
+                        <form onSubmit={this.handleSubmit}>
+                            <label>
+                                title:
+            <input type="text" name="title" onChange={this.handleChange} />
+                            </label>
+                            <label>
+                                First Name:
+            <input type="text" name="firstName" onChange={this.handleChange} />
+                            </label>
+                            <label>
+                                Last Name:
+            <input type="text" name="lastName" onChange={this.handleChange} />
+                            </label>
+                            <label>
+                                email:
+            <input type="text" name="email" onChange={this.handleChange} />
+                            </label>
+                            <label>
+                                membershipType:
+            <input type="text" name="membershipType" onChange={this.handleChange} />
+                            </label>
+                            <label>
+                                dob:
+            <input type="text" name="dob" onChange={this.handleChange} />
+                            </label>
+                            <label>
+                                streetAddress:
+            <input type="text" name="streetAddress" onChange={this.handleChange} />
+                            </label>
+                            <label>
+                                suburb:
+            <input type="text" name="suburb" onChange={this.handleChange} />
+                            </label>
+                            <label>
+                                state:
+            <input type="text" name="state" onChange={this.handleChange} />
+                            </label>
+                            <label>
+                                dogHistory:
+            <input type="text" name="dogHistory" onChange={this.handleChange} />
+                            </label>
+
+                            <button type="submit">Add</button>
+                        </form>
+                    </div>
+
                     <Table dark className="table-container">
                         <thead>
                             <tr>
                                 <td>ID</td>
-                                <td>Dish</td>
-                                <td>Name</td>
-                                <td>Description</td>
-                                <td>Price</td>
+                                <td>Title</td>
+                                <td>FirstName</td>
+                                <td>lastName</td>
+                                <td>email</td>
+                                <td>state</td>
+                                <td>membershipType</td>
+                                <td>suburb</td>
+                                <td>Dob</td>
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.foods.map(food => {
+                            {this.state.members.map(member => {
                                 return (
-                                    <tr>
-                                        <td key={food.foodItemId}>{food.foodItemId}</td>
-                                        <td key={food.foodItemId} ><img className="food" src={food.picture} alt="menu-images" /></td>
-                                        <td key={food.foodItemId} >{food.name}</td>
-                                        <td key={food.foodItemId} >{food.description}</td>
-                                        <td key={food.foodItemId} >${food.price}</td>
+                                    <tr key={member.memberId}>
+                                        <td >{member.memberId}</td>
+                                        <td>{member.title}</td>
+                                        <td>{member.firstName}</td>
+                                        <td>{member.lastName}</td>
+                                        <td>{member.email}</td>
+                                        <td>{member.state}</td>
+                                        <td>{member.membershipType}</td>
+                                        <td>{member.suburb}</td>
+                                        <td>{member.dob}</td>
                                     </tr>
                                 )
                             })}
