@@ -2,14 +2,13 @@ import React from 'react';
 import axios from 'axios';
 
 
-const base_url = "https://jsonplaceholder.typicode.com";
+const base_url = "http://localhost:40444/api/members";
 
 class Postform extends React.Component {
 
     state = {
-        title: "",
-        body: "",
-        userId: "111",
+        firstName: "",
+        lastName: "",
         isSubmitted: false
     }
     changeHandler = (e) => {
@@ -20,10 +19,8 @@ class Postform extends React.Component {
     submitHandler = (e) => {
         e.preventDefault();
 
-        axios.post(`${base_url}/posts`, {
-            title: this.state.title,
-            userId: this.state.userId,
-            body: this.state.body
+        axios.post("http://localhost:40444/api/members", {
+            firstName: this.state.firstName
         })
             .then(res => {
                 this.setState({
@@ -46,18 +43,18 @@ class Postform extends React.Component {
                 <form onSubmit={this.submitHandler}>
                     <input type="text"
                         className="form-control"
-                        name="title"
-                        value={this.state.title}
-                        placeholder="Enter your title"
+                        name="firstName"
+                        value={this.state.firstName}
+                        placeholder="Enter your firstName"
                         onChange={this.changeHandler}
                     />
-                    <textarea
+                    {/* <textarea
                         className="form-control"
                         name="body"
                         placeholder="Enter your text"
                         value={this.state.body}
                         onChange={this.changeHandler}
-                    />
+                    /> */}
                     <button type="submit" className="btn btn-success">Submit</button>
 
                     {this.state.isSubmitted && <p>Form submitted successfully</p>}

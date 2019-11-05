@@ -1,13 +1,15 @@
 import React from 'react';
-import Main from "./components/main";
 import Footer from "./components/footer";
+import Main from './components/Main';
 
 function App() {
 
   return (
     <React.Fragment>
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" crossOrigin="anonymous" />
-      <Main />
+      <div className="container" id="content">
+        <Main />
+      </div>
       < footer >
         <Footer />
       </footer >
